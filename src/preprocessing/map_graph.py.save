@@ -1,0 +1,24 @@
+import osmnx as ox
+import os
+
+def build_and_save_graph(place_name: str, save_path: str):
+    """
+    Download road network for a given place from OpenStreetMap
+    and save it as GraphML.
+    """
+    print(f"Downloading road network for: {place_name}")
+    G = ox.graph_from_place(place_name, network_type="drive")
+    
+    print(f"Saving graph to {save_path}")
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+    ox.save_graphml(G, filepath=save_path)
+    print("Done!")
+
+if __name__ == "__main__":
+    # Change this to your city or region
+    place = "Pune, India"
+    save_file = "../../data/osm/pune_graph.graphml"
+    
+    build_and_save_graph(place, save_file)
+python -u "/Users/rutvkchavhan/projects/smart-route/src/preprocessing/map_graph.py"
+
